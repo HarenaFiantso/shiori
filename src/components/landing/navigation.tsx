@@ -1,8 +1,11 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { useRouter } from 'next/navigation';
 
 export function Navigation() {
+  const router = useRouter();
+
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
@@ -30,7 +33,7 @@ export function Navigation() {
           >
             About
           </a>
-          <button className="bg-primary text-primary-foreground rounded-xl px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90">
+          <button onClick={() => router.push('/login')} className="bg-primary text-primary-foreground rounded-xl px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90">
             Get Started
           </button>
         </div>
