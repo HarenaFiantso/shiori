@@ -5,3 +5,5 @@ export * from './app-preview';
 export * from './benefits';
 export * from './features';
 export * from './about';
+export * from './cta';
+export * from './footer';

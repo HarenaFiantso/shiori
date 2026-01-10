@@ -145,7 +145,7 @@
 
 @layer components {
   .bento-card {
-    @apply bg-card rounded-2xl p-6 transition-all duration-300 ease-out border border-border/40;
+    @apply bg-card border-border/40 rounded-2xl border p-6 transition-all duration-300 ease-out;
     box-shadow: 0 2px 20px -4px oklch(0.2 0.01 20 / 0.06);
   }
 
