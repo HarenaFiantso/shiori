@@ -6,6 +6,7 @@ import { Raleway } from 'next/font/google';
 import './globals.css';
 
 import { Toaster } from '@/components/ui';
+import { AuthProvider } from '@/contexts/auth.context';
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en">
       <body className={`${raleway.className} antialiased`}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Toaster />
       </body>
     </html>
