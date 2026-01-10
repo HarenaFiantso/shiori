@@ -2,7 +2,9 @@
 
 import { FormEvent, useState } from 'react';
 
+import { loginSchema, signupSchema } from '@/schemas';
 import { AnimatePresence, motion } from 'motion/react';
+import { z } from 'zod';
 
 import { AuthForm } from './auth-form';
 import { MobileLogo } from './mobile-logo';
@@ -22,8 +24,33 @@ export function AuthCard() {
     setErrors({});
   };
 
+  const validateForm = () => {
+    try {
+      if (isLogin) {
+        loginSchema.parse({ email, password });
+      } else {
+        signupSchema.parse({ email, password, confirmPassword, displayName });
+      }
+      setErrors({});
+      return true;
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        err.issues.forEach((error) => {
+          const path = error.path[0];
+          if (path) {
+            newErrors[String(path)] = error.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     console.log('Submit button clicked');
   };
 
