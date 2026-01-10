@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 
 import { loginSchema, signupSchema } from '@/schemas';
 import { AnimatePresence, motion } from 'motion/react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { AuthForm } from './auth-form';
@@ -48,8 +49,56 @@ export function AuthCard() {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+
+    try {
+      const { error } = isLogin ? await signIn(email, password) : await signUp(email, password, displayName);
+
+      if (error) {
+        const errorMessages: Record<string, { title: string; description: string }> = {
+          'Invalid login credentials': {
+            title: 'Login failed',
+            description: 'Invalid email or password. Please try again.',
+          },
+          'already registered': {
+            title: 'Account exists',
+            description: 'This email is already registered. Try signing in instead.',
+          },
+        };
+        const matchedError = Object.keys(errorMessages).find((key) => error.message.includes(key));
+        const errorConfig = matchedError
+          ? errorMessages[matchedError]
+          : {
+              title: isLogin ? 'Login failed' : 'Signup failed',
+              description: error.message,
+            };
+
+        toast.error(errorConfig.title, {
+          description: errorConfig.description,
+        });
+      } else {
+        const successMessages = {
+          login: {
+            title: 'Welcome back!',
+            description: "You've successfully signed in.",
+          },
+          signup: {
+            title: 'Welcome to Shiori!',
+            description: 'Your account has been created successfully.',
+          },
+        };
+        toast.success(isLogin ? successMessages.login.title : successMessages.signup.title, {
+          description: isLogin ? successMessages.login.description : successMessages.signup.description,
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
 
     console.log('Submit button clicked');
   };
