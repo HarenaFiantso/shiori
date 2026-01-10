@@ -1,0 +1,79 @@
+'use client';
+
+import { FormEvent, useState } from 'react';
+
+import { AnimatePresence, motion } from 'motion/react';
+
+import { AuthForm } from './auth-form';
+import { MobileLogo } from './mobile-logo';
+
+export function AuthCard() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const toggleMode = () => {
+    setIsLogin(!isLogin);
+    setErrors({});
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log('Submit button clicked');
+  };
+
+  return (
+    <div className="flex flex-1 items-center justify-center p-8">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
+        <MobileLogo />
+        <div className="shiori-card p-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isLogin ? 'login' : 'signup'}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h2 className="text-foreground mb-2 text-2xl font-semibold">
+                {isLogin ? 'Welcome back' : 'Create account'}
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                {isLogin ? 'Sign in to continue to your workspace' : 'Start your productivity journey'}
+              </p>
+              <AuthForm
+                isLogin={isLogin}
+                email={email}
+                password={password}
+                confirmPassword={confirmPassword}
+                displayName={displayName}
+                showPassword={showPassword}
+                errors={errors}
+                isLoading={isLoading}
+                onEmailChange={setEmail}
+                onPasswordChange={setPassword}
+                onConfirmPasswordChange={setConfirmPassword}
+                onDisplayNameChange={setDisplayName}
+                onTogglePassword={() => setShowPassword(!showPassword)}
+                onSubmit={handleSubmit}
+              />
+              <div className="mt-6 text-center">
+                <p className="text-muted-foreground text-sm">
+                  {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+                  <button type="button" onClick={toggleMode} className="text-primary font-medium hover:underline">
+                    {isLogin ? 'Sign up' : 'Sign in'}
+                  </button>
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </div>
+  );
+}

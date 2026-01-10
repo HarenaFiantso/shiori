@@ -153,4 +153,64 @@
     box-shadow: 0 8px 32px -8px oklch(0.2 0.01 20 / 0.12);
     transform: translateY(-2px);
   }
+
+  .shiori-card {
+    @apply bg-card border-border/50 rounded-xl border;
+    box-shadow: var(--shiori-shadow);
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .shiori-card:hover {
+    box-shadow: var(--shiori-shadow-lg);
+  }
+
+  .shiori-surface {
+    background-color: hsl(var(--shiori-surface));
+  }
+
+  .shiori-surface-interactive {
+    background-color: hsl(var(--shiori-surface));
+    transition: background-color 0.15s ease;
+  }
+
+  .shiori-surface-interactive:hover {
+    background-color: hsl(var(--shiori-surface-hover));
+  }
+
+  .text-subtle {
+    color: hsl(var(--shiori-text-subtle));
+  }
+
+  .text-success {
+    color: hsl(var(--shiori-success));
+  }
+
+  .text-warning {
+    color: hsl(var(--shiori-warning));
+  }
+
+  .bg-success {
+    background-color: hsl(var(--shiori-success));
+  }
+
+  .bg-warning {
+    background-color: hsl(var(--shiori-warning));
+  }
+}
+
+@layer utilities {
+  .ease-spring {
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

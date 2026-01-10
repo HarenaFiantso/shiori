@@ -59,7 +59,7 @@ export function Hero() {
           className="flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push('/auth')}
             className="bg-primary text-primary-foreground group shadow-primary/20 flex w-full items-center justify-center gap-2 rounded-2xl px-8 py-4 font-medium shadow-lg transition-all hover:opacity-90 sm:w-auto"
           >
             Start for free
