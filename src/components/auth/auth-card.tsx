@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 
+import { useAuth } from '@/hooks';
 import { loginSchema, signupSchema } from '@/schemas';
 import { AnimatePresence, motion } from 'motion/react';
 import { toast } from 'sonner';
@@ -19,6 +20,8 @@ export function AuthCard() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const { signIn, signUp, user } = useAuth();
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
