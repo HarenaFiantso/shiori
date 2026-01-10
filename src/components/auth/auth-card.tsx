@@ -26,6 +26,10 @@ export function AuthCard() {
   const toggleMode = () => {
     setIsLogin(!isLogin);
     setErrors({});
+    setEmail('');
+    setPassword('');
+    setDisplayName('');
+    setConfirmPassword('');
   };
 
   const validateForm = () => {
@@ -60,62 +64,102 @@ export function AuthCard() {
     setIsLoading(true);
 
     try {
-      const { error } = isLogin ? await signIn(email, password) : await signUp(email, password, displayName);
+      const result = isLogin ? await signIn(email, password) : await signUp(email, password, displayName);
 
-      if (error) {
-        const errorMessages: Record<string, { title: string; description: string }> = {
-          'Invalid login credentials': {
-            title: 'Login failed',
-            description: 'Invalid email or password. Please try again.',
-          },
-          'already registered': {
-            title: 'Account exists',
-            description: 'This email is already registered. Try signing in instead.',
-          },
-        };
-        const matchedError = Object.keys(errorMessages).find((key) => error.message.includes(key));
-        const errorConfig = matchedError
-          ? errorMessages[matchedError]
-          : {
-              title: isLogin ? 'Login failed' : 'Signup failed',
-              description: error.message,
-            };
-
-        toast.error(errorConfig.title, {
-          description: errorConfig.description,
-          position: 'top-center',
-          style: {
-            background: '#ef4444',
-            color: 'white',
-            border: 'none',
-          },
-          duration: 5000,
-        });
-      } else {
-        const successMessages = {
-          login: {
-            title: 'Welcome back!',
-            description: "You've successfully signed in.",
-          },
-          signup: {
-            title: 'Welcome to Shiori!',
-            description: 'Your account has been created successfully. Check your email to continue',
-          },
-        };
-        toast.success(isLogin ? successMessages.login.title : successMessages.signup.title, {
-          description: isLogin ? successMessages.login.description : successMessages.signup.description,
-          position: 'top-center',
-          style: {
-            background: '#22c55d',
-            color: 'white',
-            border: 'none',
-          },
-          duration: 5000,
-        });
+      if (result?.error) {
+        handleAuthError(result.error, isLogin);
+        return;
       }
+
+      handleAuthSuccess(isLogin);
+    } catch (error) {
+      console.error('Auth error:', error);
+      toast.error('Something went wrong', {
+        description: 'An unexpected error occurred. Please try again.',
+        position: 'top-center',
+        style: {
+          background: '#ef4444',
+          color: 'white',
+          border: 'none',
+        },
+        duration: 5000,
+      });
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAuthError = (error: { message: string }, isLogin: boolean) => {
+    const errorMessages: Record<string, { title: string; description: string }> = {
+      'Invalid login credentials': {
+        title: 'Login failed',
+        description: 'Invalid email or password. Please try again.',
+      },
+      'User already registered': {
+        title: 'Account exists',
+        description: 'This email is already registered. Try signing in instead.',
+      },
+      'already registered': {
+        title: 'Account exists',
+        description: 'This email is already registered. Try signing in instead.',
+      },
+      'Email already in use': {
+        title: 'Account exists',
+        description: 'This email is already registered. Try signing in instead.',
+      },
+      duplicate: {
+        title: 'Account exists',
+        description: 'This email is already registered. Try signing in instead.',
+      },
+    };
+
+    const matchedError = Object.keys(errorMessages).find((key) =>
+      error.message.toLowerCase().includes(key.toLowerCase())
+    );
+
+    const errorConfig = matchedError
+      ? errorMessages[matchedError]
+      : {
+          title: isLogin ? 'Login failed' : 'Signup failed',
+          description: error.message,
+        };
+
+    toast.error(errorConfig.title, {
+      description: errorConfig.description,
+      position: 'top-center',
+      style: {
+        background: '#ef4444',
+        color: 'white',
+        border: 'none',
+      },
+      duration: 5000,
+    });
+  };
+
+  const handleAuthSuccess = (isLogin: boolean) => {
+    const successMessages = {
+      login: {
+        title: 'Welcome back!',
+        description: "You've successfully signed in.",
+      },
+      signup: {
+        title: 'Welcome to Shiori!',
+        description: 'Your account has been created successfully. Check your email to continue.',
+      },
+    };
+
+    const message = isLogin ? successMessages.login : successMessages.signup;
+
+    toast.success(message.title, {
+      description: message.description,
+      position: 'top-center',
+      style: {
+        background: '#22c55d',
+        color: 'white',
+        border: 'none',
+      },
+      duration: 5000,
+    });
   };
 
   return (

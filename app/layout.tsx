@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${raleway.className} antialiased`}>
         <AuthProvider>{children}</AuthProvider>
         <Toaster
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             classNames: {
               error: 'bg-red-500 text-white border-red-600',
               success: 'bg-green-500 text-white border-green-600',
-              description:`${raleway.className} font-medium`,
+              description: `${raleway.className} font-medium`,
               title: `${raleway.className} font-semibold`,
             },
           }}
