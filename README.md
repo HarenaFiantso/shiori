@@ -20,10 +20,10 @@
   <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 </div>
 
+</div>
+
 > [!IMPORTANT]
 > Shiori 栞 is still in development and not ready for production use.
-
-</div>
 
 ## What is Shiori?
 
