@@ -1,1 +1,2 @@
-export * from './branding'
+export * from './branding';
+export * from './auth-card';
