@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useRouter } from 'next/navigation';
 
 export function Branding() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export function Branding() {
       <button
         onClick={() => router.back()}
         aria-label="Go back"
-        className="absolute left-6 top-6 rounded-lg p-2 text-muted-foreground transition hover:bg-primary/10 hover:text-foreground"
+        className="text-muted-foreground hover:bg-primary/10 hover:text-foreground absolute top-6 left-6 rounded-lg p-2 transition"
       >
         <ArrowLeft className="h-5 w-5" />
       </button>
