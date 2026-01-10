@@ -83,6 +83,13 @@ export function AuthCard() {
 
         toast.error(errorConfig.title, {
           description: errorConfig.description,
+          position: 'top-center',
+          style: {
+            background: '#ef4444',
+            color: 'white',
+            border: 'none',
+          },
+          duration: 5000,
         });
       } else {
         const successMessages = {
@@ -92,18 +99,23 @@ export function AuthCard() {
           },
           signup: {
             title: 'Welcome to Shiori!',
-            description: 'Your account has been created successfully.',
+            description: 'Your account has been created successfully. Check your email to continue',
           },
         };
         toast.success(isLogin ? successMessages.login.title : successMessages.signup.title, {
           description: isLogin ? successMessages.login.description : successMessages.signup.description,
+          position: 'top-center',
+          style: {
+            background: '#22c55d',
+            color: 'white',
+            border: 'none',
+          },
+          duration: 5000,
         });
       }
     } finally {
       setIsLoading(false);
     }
-
-    console.log('Submit button clicked');
   };
 
   return (
