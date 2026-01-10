@@ -1,4 +1,4 @@
-import { AnimatedBackground, Benefits, Hero, Navigation } from '@/components/landing';
+import { About, AnimatedBackground, Benefits, Features, Hero, Navigation } from '@/components/landing';
 
 export default function Home() {
   return (
@@ -7,6 +7,8 @@ export default function Home() {
       <Navigation />
       <Hero />
       <Benefits />
+      <Features />
+      <About />
     </section>
   );
 }

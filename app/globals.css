@@ -142,3 +142,15 @@
     @apply font-semibold tracking-tight;
   }
 }
+
+@layer components {
+  .bento-card {
+    @apply bg-card rounded-2xl p-6 transition-all duration-300 ease-out border border-border/40;
+    box-shadow: 0 2px 20px -4px oklch(0.2 0.01 20 / 0.06);
+  }
+
+  .bento-card:hover {
+    box-shadow: 0 8px 32px -8px oklch(0.2 0.01 20 / 0.12);
+    transform: translateY(-2px);
+  }
+}

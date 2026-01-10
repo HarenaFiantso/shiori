@@ -3,3 +3,5 @@ export * from './navigation';
 export * from './hero';
 export * from './app-preview';
 export * from './benefits';
+export * from './features';
+export * from './about';
