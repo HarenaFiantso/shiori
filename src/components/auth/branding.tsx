@@ -1,14 +1,25 @@
 'use client';
 
+import { ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useRouter } from 'next/navigation';
 
 export function Branding() {
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       className="bg-primary/5 hidden items-center justify-center p-12 lg:flex lg:w-1/2"
     >
+      <button
+        onClick={() => router.back()}
+        aria-label="Go back"
+        className="absolute left-6 top-6 rounded-lg p-2 text-muted-foreground transition hover:bg-primary/10 hover:text-foreground"
+      >
+        <ArrowLeft className="h-5 w-5" />
+      </button>
       <div className="max-w-md">
         <div className="mb-8 flex items-center gap-3">
           <div className="bg-primary flex h-12 w-12 items-center justify-center rounded-xl">
