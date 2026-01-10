@@ -35,7 +35,7 @@ export function Navigation() {
             About
           </a>
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push('/auth')}
             className="bg-primary text-primary-foreground rounded-xl px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-90"
           >
             Get Started

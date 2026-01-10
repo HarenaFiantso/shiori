@@ -22,7 +22,7 @@ export function CTA() {
           Join thousands of people who use Shiori to organize their thoughts and get things done.
         </p>
         <button
-          onClick={() => router.push('/login')}
+          onClick={() => router.push('/auth')}
           className="bg-primary text-primary-foreground group shadow-primary/20 mx-auto flex items-center justify-center gap-2 rounded-2xl px-10 py-4 font-medium shadow-lg transition-all hover:opacity-90"
         >
           Get started — it's free
