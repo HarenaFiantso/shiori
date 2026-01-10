@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useRouter } from 'next/navigation';
 
 export function CTA() {
   const router = useRouter();
@@ -20,7 +21,10 @@ export function CTA() {
         <p className="text-muted-foreground mb-10 text-lg">
           Join thousands of people who use Shiori to organize their thoughts and get things done.
         </p>
-        <button onClick={() => router.push('/login')} className="bg-primary text-primary-foreground group shadow-primary/20 mx-auto flex items-center justify-center gap-2 rounded-2xl px-10 py-4 font-medium shadow-lg transition-all hover:opacity-90">
+        <button
+          onClick={() => router.push('/login')}
+          className="bg-primary text-primary-foreground group shadow-primary/20 mx-auto flex items-center justify-center gap-2 rounded-2xl px-10 py-4 font-medium shadow-lg transition-all hover:opacity-90"
+        >
           Get started — it's free
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </button>

@@ -2,11 +2,12 @@
 
 import { useRef } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 import { AppPreview } from './app-preview';
-import { useRouter } from 'next/navigation';
 
 export function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -57,7 +58,10 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
           className="flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <button onClick={() => router.push('/login')} className="bg-primary text-primary-foreground group shadow-primary/20 flex w-full items-center justify-center gap-2 rounded-2xl px-8 py-4 font-medium shadow-lg transition-all hover:opacity-90 sm:w-auto">
+          <button
+            onClick={() => router.push('/login')}
+            className="bg-primary text-primary-foreground group shadow-primary/20 flex w-full items-center justify-center gap-2 rounded-2xl px-8 py-4 font-medium shadow-lg transition-all hover:opacity-90 sm:w-auto"
+          >
             Start for free
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
