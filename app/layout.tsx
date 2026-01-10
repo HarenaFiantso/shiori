@@ -5,6 +5,8 @@ import { Raleway } from 'next/font/google';
 
 import './globals.css';
 
+import { Toaster } from '@/components/ui';
+
 const raleway = Raleway({
   subsets: ['latin'],
   display: 'swap',
@@ -19,7 +21,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${raleway.className} antialiased`}>{children}</body>
+      <body className={`${raleway.className} antialiased`}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
