@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description: 'Your calm space for focused productivity',
 };
 
-export default function RootLayout({ children}: Readonly<{ children: ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${raleway.className} antialiased`}>{children}</body>
