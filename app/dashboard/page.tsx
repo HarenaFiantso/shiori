@@ -17,7 +17,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className='w-full h-screen flex items-center justify-center space-y-5'>
+    <div className="flex h-screen w-full items-center justify-center space-y-5">
       <h1>Dashboard</h1>
       <Button
         variant="ghost"
