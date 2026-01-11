@@ -7,7 +7,17 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/supabase/client';
-import { BarChart3, CheckSquare, FileText, Home, Sparkles, User } from 'lucide-react';
+import {
+  BarChart3,
+  CheckSquare,
+  ChevronLeft,
+  ChevronRight,
+  FileText,
+  Home,
+  Settings,
+  Sparkles,
+  User,
+} from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { NavItem } from './nav-item';
@@ -51,7 +61,7 @@ export function Sidebar() {
         .eq('user_id', user.id)
         .single();
 
-      console.log(data)
+      console.log(data);
 
       if (data) {
         setAvatarUrl(data.avatar_url);
@@ -134,6 +144,20 @@ export function Sidebar() {
               </motion.span>
             )}
           </AnimatePresence>
+        </motion.button>
+        <NavItem
+          icon={Settings}
+          label="Settings"
+          collapsed={collapsed}
+          onClick={() => router.push('/dashboard/settings')}
+        />
+        <motion.button
+          onClick={() => setCollapsed(!collapsed)}
+          className="text-muted-foreground hover:bg-accent hover:text-white cursor-pointer flex w-full items-center justify-center rounded-lg p-2 transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
         </motion.button>
       </div>
     </motion.aside>
