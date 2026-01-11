@@ -61,8 +61,6 @@ export function Sidebar() {
         .eq('user_id', user.id)
         .single();
 
-      console.log(data);
-
       if (data) {
         setAvatarUrl(data.avatar_url);
         setDisplayName(data.display_name);

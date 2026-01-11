@@ -94,11 +94,9 @@ export function AvatarUpload({ userId, avatarUrl, onAvatarChange, size = 'md' }:
       data: { publicUrl },
     } = supabase.storage.from('avatars').getPublicUrl(filePath);
 
-    const urlWithTimestamp = `${publicUrl}?t=${Date.now()}`;
-
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ avatar_url: urlWithTimestamp })
+      .update({ avatar_url: publicUrl })
       .eq('user_id', userId);
 
     if (updateError) {
@@ -113,7 +111,7 @@ export function AvatarUpload({ userId, avatarUrl, onAvatarChange, size = 'md' }:
         duration: 5000,
       });
     } else {
-      onAvatarChange(urlWithTimestamp);
+      onAvatarChange(`${publicUrl}?t=${Date.now()}`);
       toast.success('Avatar updated', {
         description: 'Your profile picture has been updated.',
         position: 'top-center',
