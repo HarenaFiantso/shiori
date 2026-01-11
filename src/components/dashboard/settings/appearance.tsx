@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Switch } from '@/components/ui';
 import { Palette } from 'lucide-react';
@@ -11,6 +11,11 @@ import { SettingsSection } from './setting-section';
 
 export function Appearance() {
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setDarkMode(isDark);
+  }, []);
 
   const handleToggleDarkMode = () => {
     const newDarkMode = !darkMode;
