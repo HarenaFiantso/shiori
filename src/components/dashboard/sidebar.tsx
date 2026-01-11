@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { usePathname, useRouter } from 'next/navigation';
 
-import { BarChart3, CheckSquare, FileText, Home, Sparkles } from 'lucide-react';
+import { useAuth } from '@/hooks';
+import { cn } from '@/lib/utils';
+import { supabase } from '@/supabase/client';
+import { BarChart3, CheckSquare, FileText, Home, Sparkles, User } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import { NavItem } from './nav-item';
@@ -25,11 +29,40 @@ const NAV_ITEMS: NavItemConfig[] = [
 
 export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState<string | null>(null);
+
+  const { user } = useAuth();
+
   const pathname = usePathname();
   const router = useRouter();
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user) {
+        setAvatarUrl(null);
+        setDisplayName(null);
+        return;
+      }
+
+      const { data } = await supabase
+        .from('profiles')
+        .select('avatar_url, display_name')
+        .eq('user_id', user.id)
+        .single();
+
+      console.log(data)
+
+      if (data) {
+        setAvatarUrl(data.avatar_url);
+        setDisplayName(data.display_name);
+      }
+    };
+
+    fetchProfile();
+  }, [user]);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <motion.aside
@@ -72,6 +105,37 @@ export function Sidebar() {
           />
         ))}
       </nav>
+      <div className="border-sidebar-border space-y-1 border-t p-3">
+        <motion.button
+          onClick={() => router.push('/dashboard/profile')}
+          className={cn(
+            'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 transition-colors duration-150',
+            'shiori-surface-interactive'
+          )}
+          whileHover={{ x: 4 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <div className="bg-muted flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Avatar" className="h-full w-full object-cover" />
+            ) : (
+              <User className="text-muted-foreground h-3.5 w-3.5" />
+            )}
+          </div>
+          <AnimatePresence>
+            {!collapsed && (
+              <motion.span
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 'auto' }}
+                exit={{ opacity: 0, width: 0 }}
+                className="text-foreground overflow-hidden text-sm font-medium whitespace-nowrap"
+              >
+                {displayName || user?.email?.split('@')[0] || 'Profile'}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </motion.aside>
   );
 }
