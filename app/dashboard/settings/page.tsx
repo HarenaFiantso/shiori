@@ -1,4 +1,4 @@
-import { Header, ProfileCard } from '@/components/dashboard';
+import { Account, Appearance, Header, ProfileCard } from '@/components/dashboard';
 
 export default function Settings() {
   return (
@@ -6,6 +6,8 @@ export default function Settings() {
       <Header />
       <main className="mx-auto max-w-3xl space-y-8 px-4 py-8">
         <ProfileCard />
+        <Account />
+        <Appearance />
       </main>
     </div>
   );
