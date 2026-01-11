@@ -153,7 +153,7 @@ export function Sidebar() {
         />
         <motion.button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-muted-foreground hover:bg-accent hover:text-white cursor-pointer flex w-full items-center justify-center rounded-lg p-2 transition-colors"
+          className="text-muted-foreground hover:bg-accent flex w-full cursor-pointer items-center justify-center rounded-lg p-2 transition-colors hover:text-white"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
