@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { FullPageLoader } from '@/components/loader';
 import { useAuth } from '@/hooks';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -17,13 +18,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     }
   }, [session, loading, router]);
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-muted-foreground">Loading...</div>
-      </div>
-    );
-  }
+  if (loading) return <FullPageLoader />;
 
   if (!session) {
     return null;
