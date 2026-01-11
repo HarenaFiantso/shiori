@@ -1,4 +1,4 @@
-import { Account, Appearance, Header, ProfileCard } from '@/components/dashboard';
+import { Account, Appearance, Header, Notifications, ProfileCard, Support } from '@/components/dashboard';
 
 export default function Settings() {
   return (
@@ -8,6 +8,8 @@ export default function Settings() {
         <ProfileCard />
         <Account />
         <Appearance />
+        <Notifications />
+        <Support />
       </main>
     </div>
   );

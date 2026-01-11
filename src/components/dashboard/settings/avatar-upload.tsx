@@ -45,7 +45,7 @@ export function AvatarUpload({ userId, avatarUrl, onAvatarChange, size = 'md' }:
         description: 'Please upload an image file.',
         position: 'top-center',
         style: {
-          background: '#ef4444',
+          background: '#209CEE',
           color: 'white',
           border: 'none',
         },
@@ -59,7 +59,7 @@ export function AvatarUpload({ userId, avatarUrl, onAvatarChange, size = 'md' }:
         description: 'Please upload an image smaller than 5MB.',
         position: 'top-center',
         style: {
-          background: '#ef4444',
+          background: '#209CEE',
           color: 'white',
           border: 'none',
         },

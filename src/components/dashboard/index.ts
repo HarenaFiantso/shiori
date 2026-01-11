@@ -7,3 +7,5 @@ export * from './settings/avatar-upload';
 export * from './settings/account';
 export * from './settings/setting-section';
 export * from './settings/appearance';
+export * from './settings/notifications';
+export * from './settings/support';

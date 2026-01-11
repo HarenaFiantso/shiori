@@ -76,10 +76,10 @@ export function Sidebar() {
 
   return (
     <motion.aside
-      initial={{ x: -20, opacity: 0 }}
-      animate={{ x: 0, opacity: 1, width: collapsed ? 72 : 240 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="bg-sidebar border-sidebar-border flex h-screen flex-col border-r"
+      initial={{ width: 256 }}
+      animate={{ width: collapsed ? 80 : 256 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+      className="border-border/50 bg-background/95 supports-backdrop-filter:bg-background/60 fixed top-0 left-0 z-40 flex h-screen flex-col border-r backdrop-blur"
     >
       <div className="flex items-center justify-between p-4">
         <AnimatePresence>
