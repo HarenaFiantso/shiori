@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { Button } from '@/components/ui';
 import { useAuth } from '@/hooks';
 import { supabase } from '@/supabase/client';
 import { motion } from 'motion/react';
@@ -9,7 +10,7 @@ import { toast } from 'sonner';
 
 import { AvatarUpload } from './avatar-upload';
 
-export function ProfileCard() {
+export function ProfileCard({ setEditProfileOpen }: { setEditProfileOpen: (open: boolean) => void }) {
   const [bio, setBio] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -82,6 +83,9 @@ export function ProfileCard() {
           <p className="text-muted-foreground truncate">{user.email}</p>
           {bio && <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">{bio}</p>}
         </div>
+        <Button variant="outline" onClick={() => setEditProfileOpen(true)}>
+          Edit
+        </Button>
       </div>
     </motion.div>
   );

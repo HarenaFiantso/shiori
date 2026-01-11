@@ -9,6 +9,7 @@ import {
   Appearance,
   ConfirmModal,
   DangerZone,
+  EditProfileModal,
   Header,
   Notifications,
   ProfileCard,
@@ -17,6 +18,8 @@ import {
 import { useAuth } from '@/hooks';
 
 export default function Settings() {
+  const [editProfileOpen, setEditProfileOpen] = useState(false);
+
   const [signOutConfirmOpen, setSignOutConfirmOpen] = useState(false);
   const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
 
@@ -31,7 +34,7 @@ export default function Settings() {
     <div className="bg-background min-h-screen w-full">
       <Header />
       <main className="mx-auto max-w-3xl space-y-8 px-4 py-8">
-        <ProfileCard />
+        <ProfileCard setEditProfileOpen={setEditProfileOpen} />
         <Account />
         <Appearance />
         <Notifications />
@@ -46,6 +49,7 @@ export default function Settings() {
         confirmLabel="Sign Out"
         onConfirm={handleSignOut}
       />
+      <EditProfileModal open={editProfileOpen} onOpenChange={setEditProfileOpen} />
     </div>
   );
 }
