@@ -21,7 +21,7 @@ export function AuthCard() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp } = useAuth();
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
@@ -68,10 +68,19 @@ export function AuthCard() {
 
       if (result?.error) {
         handleAuthError(result.error, isLogin);
+        setIsLoading(false);
         return;
       }
 
       handleAuthSuccess(isLogin);
+
+      if (isLogin) {
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 500);
+      } else {
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error('Auth error:', error);
       toast.error('Something went wrong', {
@@ -84,7 +93,6 @@ export function AuthCard() {
         },
         duration: 5000,
       });
-    } finally {
       setIsLoading(false);
     }
   };
