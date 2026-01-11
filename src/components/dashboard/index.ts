@@ -9,3 +9,6 @@ export * from './settings/setting-section';
 export * from './settings/appearance';
 export * from './settings/notifications';
 export * from './settings/support';
+export * from './settings/danger-zone';
+
+export * from './settings/modal/confirm-modal';
