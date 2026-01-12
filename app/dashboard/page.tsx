@@ -1,6 +1,6 @@
 'use client';
 
-import { WelcomeHeader } from '@/components/dashboard';
+import { QuickStats, TasksSection, WelcomeHeader } from '@/components/dashboard';
 import { motion } from 'motion/react';
 
 export default function Dashboard() {
@@ -13,6 +13,10 @@ export default function Dashboard() {
       transition={{ duration: 0.3 }}
     >
       <WelcomeHeader />
+      <QuickStats />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TasksSection />
+      </div>
     </motion.div>
   );
 }
