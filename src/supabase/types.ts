@@ -38,12 +38,76 @@ export type Database = {
         };
         Relationships: [];
       };
+      tasks: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          description: string | null;
+          completed: boolean;
+          priority: 'low' | 'medium' | 'high';
+          due_date: string | null;
+          due_time: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title: string;
+          description?: string | null;
+          completed?: boolean;
+          priority?: 'low' | 'medium' | 'high';
+          due_date?: string | null;
+          due_time?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          title?: string;
+          description?: string | null;
+          completed?: boolean;
+          priority?: 'low' | 'medium' | 'high';
+          due_date?: string | null;
+          due_time?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      }
     };
     Views: {
-      [_ in never]: never;
+      tasks_with_profiles: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          description: string | null;
+          completed: boolean;
+          priority: 'low' | 'medium' | 'high';
+          due_date: string | null;
+          due_time: string | null;
+          created_at: string;
+          updated_at: string;
+          display_name: string | null;
+          avatar_url: string | null;
+        };
+      };
     };
     Functions: {
-      [_ in never]: never;
+      get_user_task_stats: {
+        Args: {
+          target_user_id: string;
+        };
+        Returns: {
+          total_tasks: number;
+          completed_tasks: number;
+          pending_tasks: number;
+          high_priority_tasks: number;
+          overdue_tasks: number;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;
@@ -168,3 +232,8 @@ export const Constants = {
     Enums: {},
   },
 } as const;
+
+export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type Task = Database['public']['Tables']['tasks']['Row'];
+export type TaskWithProfile = Database['public']['Views']['tasks_with_profiles']['Row'];
+export type TaskStats = Database['public']['Functions']['get_user_task_stats']['Returns'][0];
