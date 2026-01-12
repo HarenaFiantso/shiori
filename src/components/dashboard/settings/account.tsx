@@ -9,9 +9,7 @@ import { motion } from 'motion/react';
 import { SettingsItem } from './setting-item';
 import { SettingsSection } from './setting-section';
 
-export function Account() {
-  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
-
+export function Account({ setChangePasswordOpen }: { setChangePasswordOpen: (open: boolean) => void }) {
   const { user } = useAuth();
 
   return (

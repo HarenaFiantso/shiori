@@ -14,3 +14,4 @@ export * from './settings/danger-zone';
 export * from './settings/modal/confirm-modal';
 export * from './settings/modal/edit-profile-modal';
 export * from './settings/modal/setting-modal';
+export * from './settings/modal/change-password-modal';
