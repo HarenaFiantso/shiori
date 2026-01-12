@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import {
   Account,
   Appearance,
+  ChangePasswordModal,
   ConfirmModal,
   DangerZone,
   EditProfileModal,
@@ -19,6 +20,7 @@ import { useAuth } from '@/hooks';
 
 export default function Settings() {
   const [editProfileOpen, setEditProfileOpen] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   const [signOutConfirmOpen, setSignOutConfirmOpen] = useState(false);
   const [deleteAccountOpen, setDeleteAccountOpen] = useState(false);
@@ -35,7 +37,7 @@ export default function Settings() {
       <Header />
       <main className="mx-auto max-w-3xl space-y-8 px-4 py-8">
         <ProfileCard setEditProfileOpen={setEditProfileOpen} />
-        <Account />
+        <Account setChangePasswordOpen={setChangePasswordOpen} />
         <Appearance />
         <Notifications />
         <Support />
@@ -50,6 +52,7 @@ export default function Settings() {
         onConfirm={handleSignOut}
       />
       <EditProfileModal open={editProfileOpen} onOpenChange={setEditProfileOpen} />
+      <ChangePasswordModal open={changePasswordOpen} onOpenChange={setChangePasswordOpen} />
     </div>
   );
 }
