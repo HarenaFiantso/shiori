@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/dashboard';
 import { FullPageLoader } from '@/components/loader';
 import { useAuth } from '@/hooks';
+import { AnimatePresence } from 'motion/react';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { session, loading } = useAuth();
@@ -29,7 +30,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="bg-background flex min-h-screen">
       <Sidebar />
-      {children}
+      <main className="flex-1 overflow-auto">
+        <div className="mx-auto max-w-6xl p-8">
+          <AnimatePresence>{children}</AnimatePresence>
+        </div>
+      </main>
     </div>
   );
 }

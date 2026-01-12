@@ -1,33 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
-import { Button } from '@/components/ui';
-import { useAuth } from '@/hooks';
-import { LogOut } from 'lucide-react';
+import { WelcomeHeader } from '@/components/dashboard';
+import { motion } from 'motion/react';
 
 export default function Dashboard() {
-  const { signOut } = useAuth();
-
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.replace('/auth');
-  };
-
   return (
-    <div className="flex h-screen w-full items-center justify-center space-y-5">
-      <h1>Dashboard</h1>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={handleSignOut}
-        className="text-muted-foreground hover:text-destructive"
-      >
-        <LogOut className="mr-2 h-4 w-4" />
-        Sign out
-      </Button>
-    </div>
+    <motion.div
+      key="dashboard"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <WelcomeHeader />
+    </motion.div>
   );
 }

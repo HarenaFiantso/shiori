@@ -1,5 +1,6 @@
 export * from './sidebar';
 export * from './nav-item';
+export * from './welcome-header';
 
 export * from './settings/header';
 export * from './settings/profile-card';
