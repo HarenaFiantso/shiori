@@ -11,11 +11,12 @@ export function useTaskStats() {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
-      const { data, error } = await supabase
-        .rpc('get_user_task_stats', { target_user_id: user.id });
+      const { data, error } = await supabase.rpc('get_user_task_stats', { target_user_id: user.id });
 
       if (error) throw error;
       setStats(data[0] || null);

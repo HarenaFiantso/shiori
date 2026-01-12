@@ -75,7 +75,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
-      }
+      };
     };
     Views: {
       tasks_with_profiles: {

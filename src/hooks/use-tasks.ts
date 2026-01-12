@@ -1,5 +1,10 @@
-import { supabase } from '@/supabase/client';
 import { useEffect, useState } from 'react';
+
+import { supabase } from '@/supabase/client';
+import { Database, Task, TaskWithProfile } from '@/supabase/types';
+
+type TaskInsert = Database['public']['Tables']['tasks']['Insert'];
+type TaskUpdate = Database['public']['Tables']['tasks']['Update'];
 
 interface UseTasksOptions {
   withProfiles?: boolean;
@@ -12,7 +17,7 @@ interface UseTasksOptions {
 }
 
 export function useTasks(options: UseTasksOptions = {}) {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[] | TaskWithProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,10 +26,8 @@ export function useTasks(options: UseTasksOptions = {}) {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      
-      let query = withProfiles
-        ? supabase.from('tasks_with_profiles').select('*')
-        : supabase.from('tasks').select('*');
+
+      let query = withProfiles ? supabase.from('tasks_with_profiles').select('*') : supabase.from('tasks').select('*');
 
       if (filter?.completed !== undefined) {
         query = query.eq('completed', filter.completed);
@@ -74,15 +77,9 @@ export function useTasks(options: UseTasksOptions = {}) {
     }
   };
 
-  // Update task
   const updateTask = async (id: string, updates: TaskUpdate) => {
     try {
-      const { data, error } = await supabase
-        .from('tasks')
-        .update(updates)
-        .eq('id', id)
-        .select()
-        .single();
+      const { data, error } = await supabase.from('tasks').update(updates).eq('id', id).select().single();
 
       if (error) throw error;
       setTasks((prev) => prev.map((task) => (task.id === id ? data : task)));
@@ -94,7 +91,6 @@ export function useTasks(options: UseTasksOptions = {}) {
     }
   };
 
-  // Toggle task completion
   const toggleTask = async (id: string) => {
     const task = tasks.find((t) => t.id === id);
     if (!task) return;
@@ -102,7 +98,6 @@ export function useTasks(options: UseTasksOptions = {}) {
     return updateTask(id, { completed: !task.completed });
   };
 
-  // Delete task
   const deleteTask = async (id: string) => {
     try {
       const { error } = await supabase.from('tasks').delete().eq('id', id);
@@ -117,7 +112,6 @@ export function useTasks(options: UseTasksOptions = {}) {
     }
   };
 
-  // Subscribe to real-time changes
   useEffect(() => {
     fetchTasks();
 
@@ -134,9 +128,7 @@ export function useTasks(options: UseTasksOptions = {}) {
           if (payload.eventType === 'INSERT') {
             setTasks((prev) => [payload.new as Task, ...prev]);
           } else if (payload.eventType === 'UPDATE') {
-            setTasks((prev) =>
-              prev.map((task) => (task.id === payload.new.id ? (payload.new as Task) : task))
-            );
+            setTasks((prev) => prev.map((task) => (task.id === payload.new.id ? (payload.new as Task) : task)));
           } else if (payload.eventType === 'DELETE') {
             setTasks((prev) => prev.filter((task) => task.id !== payload.old.id));
           }
