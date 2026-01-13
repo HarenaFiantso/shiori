@@ -1,6 +1,6 @@
 'use client';
 
-import { QuickStats, TasksSection, WelcomeHeader } from '@/components/dashboard';
+import { NotesSection, QuickStats, TasksSection, WelcomeHeader } from '@/components/dashboard';
 import { motion } from 'motion/react';
 
 export default function Dashboard() {
@@ -16,6 +16,9 @@ export default function Dashboard() {
       <QuickStats />
       <div className="grid gap-6 lg:grid-cols-2">
         <TasksSection />
+        <div className="space-y-6">
+          <NotesSection />
+        </div>
       </div>
     </motion.div>
   );

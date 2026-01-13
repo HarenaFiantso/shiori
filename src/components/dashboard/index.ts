@@ -5,6 +5,7 @@ export * from './quick-stats';
 export * from './task-card';
 export * from './tasks-section';
 export * from './add-task-modal';
+export * from './notes-section';
 
 export * from './settings/header';
 export * from './settings/profile-card';
