@@ -43,7 +43,7 @@ export function QuickStats() {
     return (
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, index) => (
-          <div key={index} className="shiori-card h-[92px] animate-pulse" />
+          <div key={index} className="shiori-card h-23 animate-pulse" />
         ))}
       </div>
     );
