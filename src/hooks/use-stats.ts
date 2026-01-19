@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
 import { supabase } from '@/supabase/client';
-import { TaskStats } from '@/supabase/types';
+import { NoteStats, TaskStats } from '@/supabase/types';
 
 export function useTaskStats() {
-  const [stats, setStats] = useState<TaskStats | null>(null);
+  const [taskStats, setTaskStats] = useState<TaskStats | null>(null);
+  const [noteStats, setNoteStats] = useState<NoteStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchStats = async () => {
+  const fetchTaskStats = async () => {
     try {
       setLoading(true);
       const {
@@ -19,7 +20,7 @@ export function useTaskStats() {
       const { data, error } = await supabase.rpc('get_user_task_stats', { target_user_id: user.id });
 
       if (error) throw error;
-      setStats(data[0] || null);
+      setTaskStats(data[0] || null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch task stats');
     } finally {
@@ -27,14 +28,30 @@ export function useTaskStats() {
     }
   };
 
+  const fetchNoteStats = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.rpc('get_note_stats');
+
+      if (error) throw error;
+      setNoteStats(data[0] || null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch stats');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetchStats();
+    fetchTaskStats();
+    fetchNoteStats();
   }, []);
 
   return {
-    stats,
+    taskStats,
+    noteStats,
     loading,
     error,
-    refetch: fetchStats,
+    refetch: fetchTaskStats,
   };
 }

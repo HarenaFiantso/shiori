@@ -1,9 +1,5 @@
 import { useState } from 'react';
 
-import { cn } from '@/lib/utils';
-import { Calendar, Clock, Flag, Loader2 } from 'lucide-react';
-import { motion } from 'motion/react';
-
 import {
   Button,
   Dialog,
@@ -14,7 +10,10 @@ import {
   Input,
   Label,
   Textarea,
-} from '../ui';
+} from '@/components/ui';
+import { cn } from '@/lib/utils';
+import { Calendar, Clock, Flag, Loader2 } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface AddTaskModalProps {
   open: boolean;
@@ -56,7 +55,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
         due_time: dueTime || '',
       });
 
-      // Reset form
       setTitle('');
       setDescription('');
       setPriority('medium');
@@ -87,7 +85,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
             Create a new task to track your progress
           </DialogDescription>
         </DialogHeader>
-
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 10 }}
@@ -106,7 +103,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
               disabled={submitting}
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
@@ -119,7 +115,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
               disabled={submitting}
             />
           </div>
-
           <div className="space-y-2">
             <Label>Priority</Label>
             <div className="flex gap-2">
@@ -141,7 +136,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
               ))}
             </div>
           </div>
-
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="dueDate">Due Date</Label>
@@ -172,7 +166,6 @@ export const AddTaskModal = ({ open, onOpenChange, onAdd }: AddTaskModalProps) =
               </div>
             </div>
           </div>
-
           <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="outline" onClick={handleClose} disabled={submitting}>
               Cancel
