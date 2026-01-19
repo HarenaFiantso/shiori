@@ -36,9 +36,11 @@ export default function Dashboard() {
     >
       <WelcomeHeader />
       <QuickStats />
-      <div className="grid gap-6 lg:grid-cols-2">
-        <TaskSection />
-        <div className="space-y-6">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <div className="lg:w-1/2 lg:shrink-0">
+          <TaskSection />
+        </div>
+        <div className="flex flex-col gap-6 lg:w-1/2 lg:shrink-0">
           <NotesSection />
           <HabitSection />
         </div>

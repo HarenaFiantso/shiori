@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { showToast } from '@/components/utils';
 import { useTasks } from '@/hooks/use-tasks';
+import { cn } from '@/lib/utils';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -20,7 +21,7 @@ interface NewTask {
   due_time: string;
 }
 
-export function TaskSection() {
+export function TaskSection({ className }: { className?: string }) {
   const [addModalOpen, setAddModalOpen] = useState(false);
 
   const router = useRouter();
@@ -79,7 +80,7 @@ export function TaskSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="shiori-card p-6"
+        className={cn('shiori-card p-6', className)}
       >
         <TaskHeader
           completedCount={completedTasks.length}
