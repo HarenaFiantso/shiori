@@ -1,10 +1,15 @@
+export * from './quick-stats/stat-card';
+export * from './quick-stats/quick-stats';
+
+export * from './task-section/add-task-modal';
+export * from './task-section/progress-bar';
+export * from './task-section/task-card';
+export * from './task-section/task-header';
+export * from './task-section/task-list';
+export * from './task-section/task-section';
+
 export * from './sidebar';
 export * from './nav-item';
-export * from './welcome-header';
-export * from './quick-stats';
-export * from './task-card';
-export * from './tasks-section';
-export * from './add-task-modal';
 export * from './notes-section';
 export * from './habit-section';
 
