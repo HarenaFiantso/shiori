@@ -4,7 +4,7 @@ import { CheckCircle2, FileText, Flame, Target } from 'lucide-react';
 import { StatCard } from './stat-card';
 
 export function QuickStats() {
-  const { stats, loading, error } = useTaskStats();
+  const { taskStats, noteStats, loading, error } = useTaskStats();
 
   if (loading) {
     return (
@@ -16,7 +16,7 @@ export function QuickStats() {
     );
   }
 
-  if (error || !stats) {
+  if (error || !taskStats || !noteStats) {
     return <div className="text-muted-foreground mb-6 text-sm">Unable to load your stats.</div>;
   }
 
@@ -24,13 +24,13 @@ export function QuickStats() {
     {
       icon: CheckCircle2,
       label: 'Tasks Done',
-      value: stats.completed_tasks,
+      value: taskStats.completed_tasks,
       suffix: 'today',
     },
     {
       icon: FileText,
       label: 'Notes',
-      value: 0,
+      value: noteStats.total_notes,
       suffix: 'total',
     },
     {

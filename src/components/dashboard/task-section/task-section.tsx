@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -27,6 +27,18 @@ export function TaskSection() {
 
   const { tasks, loading, error, addTask, toggleTask } = useTasks();
 
+  const { incompleteTasks, completedTasks, completionRate } = useMemo(() => {
+    const incomplete = tasks.filter((t) => !t.completed);
+    const complete = tasks.filter((t) => t.completed);
+    const rate = tasks.length > 0 ? Math.round((complete.length / tasks.length) * 100) : 0;
+
+    return {
+      incompleteTasks: incomplete,
+      completedTasks: complete,
+      completionRate: rate,
+    };
+  }, [tasks]);
+
   const handleToggle = async (id: string) => {
     const result = await toggleTask(id);
     if (result?.error) {
@@ -49,10 +61,6 @@ export function TaskSection() {
       showToast.success('Task added successfully');
     }
   };
-
-  const incompleteTasks = tasks.filter((t) => !t.completed);
-  const completedTasks = tasks.filter((t) => t.completed);
-  const completionRate = tasks.length > 0 ? Math.round((completedTasks.length / tasks.length) * 100) : 0;
 
   if (error) {
     return (
